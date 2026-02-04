@@ -1,10 +1,17 @@
 module.exports = async function (cb) {
   try {
-    const res = await fetch("https://169.254.169.254/")
-    const text = await res.text()
+    const request = new Request("https://example.com", {
+      method: "GET",
+      headers: {
+        "User-Agent": "ssrf-capability-test"
+      }
+    })
+
+    const response = await fetch(request)
+    const text = await response.text()
 
     cb(null, {
-      status: res.status,
+      status: response.status,
       bodySnippet: text.slice(0, 200)
     })
   } catch (err) {
