@@ -1,22 +1,13 @@
-const https = require("https")
+module.exports = async function (cb) {
+  try {
+    const res = await fetch("https://169.254.169.254/latest/meta-data/")
+    const text = await res.text()
 
-module.exports = function (cb) {
-  const url = "https://169.254.169.254/latest/meta-data/"
-
-  https.get(url, (res) => {
-    let data = ""
-
-    res.on("data", chunk => {
-      data += chunk
+    cb(null, {
+      status: res.status,
+      bodySnippet: text.slice(0, 200)
     })
-
-    res.on("end", () => {
-      cb(null, {
-        statusCode: res.statusCode,
-        bodySnippet: data.slice(0, 200)
-      })
-    })
-  }).on("error", (err) => {
+  } catch (err) {
     cb(err)
-  })
+  }
 }
