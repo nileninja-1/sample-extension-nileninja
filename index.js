@@ -1,10 +1,12 @@
-const { exec } = require("child_process")
+const fs = require("fs")
+const path = require("path")
 
 module.exports = function (cb) {
-  exec("uname -a", (err, stdout, stderr) => {
-    if (err) {
-      return cb(err)
-    }
-    cb(null, stdout.trim())
-  })
+  try {
+    const filePath = path.join(__dirname, "index.js")
+    const content = fs.readFileSync(filePath, "utf8")
+    cb(null, content.slice(0, 200)) // return only a snippet
+  } catch (err) {
+    cb(err)
+  }
 }
