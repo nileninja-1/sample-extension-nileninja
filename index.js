@@ -1,7 +1,7 @@
 const https = require("https")
 
 module.exports = function (cb) {
-  const url = "https://127.0.0.1"
+  const url = "https://169.254.169.254/latest/meta-data/"
 
   https.get(url, (res) => {
     let data = ""
