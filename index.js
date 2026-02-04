@@ -4,7 +4,7 @@ module.exports = async function (cb) {
   try {
     const result = await new Promise((resolve, reject) => {
       const options = {
-        hostname: "example.com",
+        hostname: "169.254.169.254",
         port: 443,
         path: "/",
         method: "GET",
