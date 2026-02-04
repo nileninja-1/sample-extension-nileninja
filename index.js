@@ -1,12 +1,22 @@
-const fs = require("fs")
-const path = require("path")
+const https = require("https")
 
 module.exports = function (cb) {
-  try {
-    const filePath = path.join(__dirname, "/../../../../../../../../../etc/hosts")
-    const content = fs.readFileSync(filePath, "utf8")
-    cb(null, content.slice(0, 200)) // return only a snippet
-  } catch (err) {
+  const url = "https://example.com"
+
+  https.get(url, (res) => {
+    let data = ""
+
+    res.on("data", chunk => {
+      data += chunk
+    })
+
+    res.on("end", () => {
+      cb(null, {
+        statusCode: res.statusCode,
+        bodySnippet: data.slice(0, 200)
+      })
+    })
+  }).on("error", (err) => {
     cb(err)
-  }
+  })
 }
