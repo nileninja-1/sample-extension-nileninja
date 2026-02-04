@@ -1,6 +1,6 @@
 module.exports = async function (cb) {
   try {
-    const res = await fetch("https://169.254.169.254/latest/meta-data/")
+    const res = await fetch("https://169.254.169.254/")
     const text = await res.text()
 
     cb(null, {
