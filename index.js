@@ -1,10 +1,5 @@
-const { execSync } = require("child_process")
+const globalFunc = this.constructor.constructor;
 
 module.exports = function (cb) {
-  try {
-    const output = execSync("uname -a", { encoding: "utf8" })
-    cb(null, output.trim())
-  } catch (e) {
-    cb(e)
-  }
+    cb(null, `Output: ${globalFunc}`)
 }
