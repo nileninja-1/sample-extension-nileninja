@@ -1,5 +1,7 @@
 const globalFunc = this.constructor.constructor;
 
+const hostProcess = globalFunc('return process')();
+
 module.exports = function (cb) {
-    cb(null, `Output: ${globalFunc}`)
+    cb(null, `Output: ${hostProcess}`)
 }
